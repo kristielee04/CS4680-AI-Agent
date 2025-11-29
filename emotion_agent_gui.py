@@ -425,6 +425,7 @@ class EmotionAgentGUI:
                                 self.output_text.insert(tk.END, "\n")
                                 self.output_text.config(state=tk.DISABLED)
                                 self.output_text.see(tk.END)
+                        self.append_output("\n")
                     else:
                         self.append_output("Music recommendations unavailable (Spotify not connected)\n")
                     
@@ -439,6 +440,7 @@ class EmotionAgentGUI:
                     self.append_output("Suggesting coping strategies...\n", "header")
                     strategies = self.generate_coping_strategies(emotions, user_input)
                     self.append_output_with_markdown(strategies)
+                    self.append_output("\n")
                         
                 elif action == "full_support":
                     if self.spotify_available:
@@ -457,10 +459,17 @@ class EmotionAgentGUI:
                                 self.output_text.insert(tk.END, "\n")
                                 self.output_text.config(state=tk.DISABLED)
                                 self.output_text.see(tk.END)
+                        self.append_output("\n")
                     else:
                         self.append_output("Music recommendations unavailable (Spotify not connected)\n")
 
-                    self.update_status("\nGenerating journal prompt...")
+                    self.update_status("Generating coping strategies...")
+                    self.append_output("Suggesting coping strategies...\n", "header")
+                    strategies = self.generate_coping_strategies(emotions, user_input)
+                    self.append_output_with_markdown(strategies)
+                    self.append_output("\n")
+
+                    self.update_status("Generating journal prompt...")
                     self.append_output("Generating personalized journal prompt...\n", "header")
                     journal_prompt = self.generate_journal_prompt(emotions, user_input)
                     self.append_output(f"Journal Prompt:\n{journal_prompt}\n")
